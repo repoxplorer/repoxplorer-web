@@ -5,8 +5,8 @@ import queryString from 'query-string'
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card'
 import { Link } from 'react-router-dom'
+import Alert from 'react-bootstrap/Alert'
 
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
@@ -30,93 +30,111 @@ class Projects extends React.Component {
 
   render() {
     if (this.props.loading) {
-      return "Loading"
+      return (
+        <Row>
+          <Col md={{ span: 12, offset: 5 }}>
+            <ReactLoading type='bars' color='grey' />
+          </Col>
+        </Row>
+      )
     }
-    const { SearchBar } = Search;
-    const columns = [
-      {
-        dataField: 'project',
-        text: 'Project name'
-      },
-      {
-        dataField: 'description',
-        text: 'Description'
-      },
-      {
-        dataField: 'repositories',
-        text: 'Repositories',
-        filterValue: function (refs) {
-          return refs.map(function (ref) {
-            return ref.name
-          }).join(' ')
+    if (this.props.error) {
+      return <p>
+        <Alert variant='warning'>
+          Unable to contact the backend
+        </Alert>
+      </p>
+    }
+    if (this.props.result) {
+      const { SearchBar } = Search;
+      const columns = [
+        {
+          dataField: 'project',
+          text: 'Project name',
+          headerStyle: () => {
+            return { width: '200px' };
+          }
         },
-        formatter: function (refs) {
-          return refs.map(
-            ref => (
-              <span>
-                <Link
-                  to={
-                    'project?' +
-                    queryString.stringify(
-                      {
-                        'name': ref.project,
-                        'repository': ref.name + ':' + ref.branch
-                      }
-                    )
-                  }>
-                  {ref.name + ':' + ref.branch}
-                </Link>
-                {' '}
-              </span>
-            )
-          )
-        }
-      }
-    ]
-    var products = []
-    var repositories = []
-    Object.keys(this.props.result.projects).forEach((project_name, index) => (
-      products.push({
-        'project': this.props.result.projects[project_name].name,
-        'description': this.props.result.projects[project_name].description,
-        'repositories': this.reduceRefsForField(
-          this.props.result.projects[project_name].name,
-          this.props.result.projects[project_name].refs),
-      })
-    ))
-
-    const options = {
-      sizePerPageList: [{
-        value: 10
-      }]
-    }
-    return (
-      <Row>
-        <Col>
-          <ToolkitProvider
-            keyField="id"
-            data={products}
-            columns={columns}
-            search
-          >
-            {
-              props => (
+        {
+          dataField: 'description',
+          text: 'Description',
+          headerStyle: () => {
+            return { width: '300px' };
+          }
+        },
+        {
+          dataField: 'repositories',
+          text: 'Repositories',
+          filterValue: function (refs) {
+            return refs.map(function (ref) {
+              return ref.name
+            }).join(' ')
+          },
+          formatter: function (refs) {
+            return refs.map(
+              ref => (
                 <div>
-                  <SearchBar {...props.searchProps} />
-                  <hr />
-                  <BootstrapTable
-                    {...props.baseProps}
-                    pagination={paginationFactory(options)}
-                  />
+                  <Link
+                    to={
+                      'project?' +
+                      queryString.stringify(
+                        {
+                          'name': ref.project,
+                          'repository': ref.name + ':' + ref.branch
+                        }
+                      )
+                    }>
+                    {ref.name + ':' + ref.branch}
+                  </Link>
+                  {' '}
                 </div>
               )
-            }
-          </ToolkitProvider>
+            )
+          }
+        }
+      ]
+      var projects = []
+      Object.keys(this.props.result.projects).forEach((project_name, index) => (
+        projects.push({
+          'project': this.props.result.projects[project_name].name,
+          'description': this.props.result.projects[project_name].description,
+          'repositories': this.reduceRefsForField(
+            this.props.result.projects[project_name].name,
+            this.props.result.projects[project_name].refs),
+        })
+      ))
 
-
-        </Col>
-      </Row >
-    )
+      const options = {
+        sizePerPageList: [{
+          value: 10
+        }]
+      }
+      return (
+        <Row>
+          <Col>
+            <ToolkitProvider
+              keyField="id"
+              data={projects}
+              columns={columns}
+              search
+            >
+              {
+                props => (
+                  <div>
+                    <SearchBar {...props.searchProps} />
+                    <hr />
+                    <BootstrapTable
+                      {...props.baseProps}
+                      pagination={paginationFactory(options)}
+                    />
+                  </div>
+                )
+              }
+            </ToolkitProvider>
+          </Col>
+        </Row >
+      )
+    }
   }
 }
 
