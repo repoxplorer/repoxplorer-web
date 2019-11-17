@@ -49,8 +49,21 @@ class Projects extends React.Component {
       const { SearchBar } = Search;
       const columns = [
         {
-          dataField: 'project',
+          dataField: 'name',
           text: 'Project name',
+          formatter: function (name) {
+            return <Link
+              to={
+                'project?' +
+                queryString.stringify(
+                  {
+                    'name': name
+                  }
+                )
+              }>
+              {name}
+            </Link>
+          },
           headerStyle: () => {
             return { width: '200px' };
           }
@@ -96,7 +109,7 @@ class Projects extends React.Component {
       var projects = []
       Object.keys(this.props.result.projects).forEach((project_name, index) => (
         projects.push({
-          'project': this.props.result.projects[project_name].name,
+          'name': this.props.result.projects[project_name].name,
           'description': this.props.result.projects[project_name].description,
           'repositories': this.reduceRefsForField(
             this.props.result.projects[project_name].name,
