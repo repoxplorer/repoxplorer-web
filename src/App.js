@@ -17,6 +17,7 @@ import Col from 'react-bootstrap/Col'
 import TopMenu from './components/menu'
 import Status from './components/status'
 import Projects from './components/projects'
+import Project from './components/project'
 
 
 class RootView extends React.Component {
@@ -63,6 +64,28 @@ class ProjectsView extends React.Component {
   }
 }
 
+class ProjectView extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <TopMenu />
+        <Container>
+          <Row><Col><p></p></Col></Row>
+          <Row>
+            <Col>
+              <Project
+                GetInfos={this.props.handleGetInfos}
+                infos_loading={this.props.infos_loading}
+                infos_result={this.props.infos_result}
+                infos_error={this.props.infos_error}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </React.Fragment>)
+  }
+}
+
 class App extends React.Component {
   render() {
     return (
@@ -83,6 +106,14 @@ class App extends React.Component {
             projects_error={this.props.projects_error}
           />
         </Route>
+        <Route exact path='/project'>
+          <ProjectView
+            handleGetInfos={this.props.handleGetInfos}
+            infos_result={this.props.infos_result}
+            infos_loading={this.props.infos_loading}
+            infos_error={this.props.infos_error}
+          />
+        </Route>
       </Switch>
     )
   }
@@ -91,13 +122,13 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     status_result: state.statusReducer.result,
-    status_error_response: state.statusReducer.error_response,
+    status_error: state.statusReducer.error_response,
     status_loading: state.statusReducer.loading,
     infos_result: state.infosReducer.result,
-    infos_error_response: state.infosReducer.error_response,
+    infos_error: state.infosReducer.error_response,
     infos_loading: state.infosReducer.loading,
     projects_result: state.projectsReducer.result,
-    projects_error_response: state.projectsReducer.error_response,
+    projects_error: state.projectsReducer.error_response,
     projects_loading: state.projectsReducer.loading,
   }
 }

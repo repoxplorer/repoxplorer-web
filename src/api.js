@@ -15,9 +15,12 @@ function projects() {
 
 function infos(project_id) {
   const url = baseurl + '/infos/infos'
-  const params = new URLSearchParams()
+  var params = new URLSearchParams()
   params.append('pid', project_id)
-  return axios.get(url, params)
+  return axios.get(
+    url, {
+    params: params
+  })
 }
 
 export {
