@@ -24,10 +24,10 @@ const reducer = (state = initialState, action) => {
   return newState;
 }
 
-function getProjects() {
+function getProjects(project_id) {
   return (dispatch) => {
     dispatch({ type: 'PROJECTS_LOADING' });
-    return projects()
+    return projects(project_id)
       .then(response => {
         dispatch(
           {

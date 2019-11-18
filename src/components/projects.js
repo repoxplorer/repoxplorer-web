@@ -86,7 +86,7 @@ class Projects extends React.Component {
           formatter: function (refs) {
             return refs.map(
               ref => (
-                <div>
+                <div key={ref.name + ':' + ref.branch}>
                   <Link
                     to={
                       'project?' +

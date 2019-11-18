@@ -23,14 +23,15 @@ class InfosData extends React.Component {
     if (this.props.result) {
       return (
         <React.Fragment>
-          <InfosBoxEntry infos={this.props.result} entry='description' />
+          <InfosBoxEntry
+            infos={{ 'description': this.props.description }}
+            entry='description' />
           {this.props.infos_entries.map(entry =>
             <InfosBoxEntry key={entry} infos={this.props.result} entry={entry} />
           )}
         </React.Fragment>
       )
     }
-    console.log(this.props.error)
     if (this.props.error) {
       if (this.props.error.data) {
         return (
@@ -89,6 +90,7 @@ class InfosBox extends React.Component {
             result={this.props.result}
             loading={this.props.loading}
             error={this.props.error}
+            description={this.props.description}
             infos_entries={this.props.infos_entries}
             GetInfos={this.props.GetInfos}
           />

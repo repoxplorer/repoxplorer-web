@@ -78,6 +78,10 @@ class ProjectView extends React.Component {
                 infos_loading={this.props.infos_loading}
                 infos_result={this.props.infos_result}
                 infos_error={this.props.infos_error}
+                GetProjects={this.props.handleGetProjects}
+                projects_result={this.props.projects_result}
+                projects_loading={this.props.projects_loading}
+                projects_error={this.props.projects_error}
               />
             </Col>
           </Row>
@@ -108,6 +112,10 @@ class App extends React.Component {
         </Route>
         <Route exact path='/project'>
           <ProjectView
+            handleGetProjects={this.props.handleGetProjects}
+            projects_result={this.props.projects_result}
+            projects_loading={this.props.projects_loading}
+            projects_error={this.props.projects_error}
             handleGetInfos={this.props.handleGetInfos}
             infos_result={this.props.infos_result}
             infos_loading={this.props.infos_loading}
@@ -137,7 +145,7 @@ const mapDispatchToProps = dispatch => {
   return {
     handleGetStatus: () => dispatch(getStatus()),
     handleGetInfos: (project_id) => dispatch(getInfos(project_id)),
-    handleGetProjects: () => dispatch(getProjects())
+    handleGetProjects: (project_id) => dispatch(getProjects(project_id))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -8,9 +8,17 @@ function status() {
   return axios.get(url)
 }
 
-function projects() {
+function projects(project_id) {
+  console.log(project_id)
   const url = baseurl + '/projects/projects'
-  return axios.get(url)
+  var params = new URLSearchParams()
+  if (project_id) {
+    params.append('pid', project_id)
+  }
+  return axios.get(
+    url, {
+    params: params
+  })
 }
 
 function infos(project_id) {

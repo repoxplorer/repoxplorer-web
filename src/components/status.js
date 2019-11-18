@@ -24,15 +24,15 @@ class StatusText extends React.Component {
     if (this.props.result) {
       return (
         <React.Fragment>
-          <p class="text-center">
-            <h2>
+          <h2>
+            <p className="text-center">
               {this.props.result.projects} projects over{' '}
               {this.props.result.repos} Git repositories are indexed{' '}
               {'this'} repoXplorer instance. You'll find stats{' '}
               about them and their contributors.
+            </p>
           </h2>
-          </p>
-          <p class="text-center">
+          <p className="text-center">
             {this.props.result.customtext}
           </p>
         </React.Fragment>
@@ -55,24 +55,26 @@ class Status extends React.Component {
         <Col md={{ span: 8, offset: 2 }}>
           <Card>
             <Card.Body>
-              <p class="text-center">
-                <h1>Welcome on repoXplorer</h1>
-              </p>
+              <h1>
+                <p className="text-center">
+                  Welcome on repoXplorer
+                </p>
+              </h1>
               <StatusText
                 GetStatus={this.props.GetStatus}
                 loading={this.props.loading}
                 result={this.props.result}
                 error={this.props.error}
               />
-              <p class="text-center">
-                <h3>
+              <h3>
+                <p className="text-center">
                   Browse
                     {' '}<Link to='projects'>projects</Link>{' '}
                   {' '}<Link to='contributors'>contributors</Link>{' '}
                   {' '}<Link to='groups'>groups</Link>{' '}
                   indexes.
-                  </h3>
-              </p>
+                </p>
+              </h3>
             </Card.Body>
           </Card>
         </Col>
