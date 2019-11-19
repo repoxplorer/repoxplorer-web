@@ -88,6 +88,8 @@ class ProjectView extends React.Component {
                 handleToDateChange={this.props.handleToDateChange}
                 include_merge_commits={this.props.include_merge_commits}
                 handleIMCChange={this.props.handleIMCChange}
+                setQueryParamsUpdated={this.props.setQueryParamsUpdated}
+                query_params_updated={this.props.query_params_updated}
               />
             </Col>
           </Row>
@@ -132,6 +134,8 @@ class App extends React.Component {
             handleToDateChange={this.props.handleToDateChange}
             include_merge_commits={this.props.include_merge_commits}
             handleIMCChange={this.props.handleIMCChange}
+            setQueryParamsUpdated={this.props.setQueryParamsUpdated}
+            query_params_updated={this.props.query_params_updated}
           />
         </Route>
       </Switch>
@@ -153,6 +157,7 @@ const mapStateToProps = state => {
     filters_from_date: state.filtersReducer.from_date,
     filters_to_date: state.filtersReducer.to_date,
     include_merge_commits: state.filtersReducer.include_merge_commits,
+    query_params_updated: state.filtersReducer.query_params_updated,
   }
 }
 
@@ -177,6 +182,12 @@ const mapDispatchToProps = dispatch => {
       {
         type: 'IMC_CHANGE',
         value: date
+      }
+    ),
+    setQueryParamsUpdated: () => dispatch(
+      {
+        type: 'QUERY_PARAMS_UPDATED',
+        value: true
       }
     ),
   }

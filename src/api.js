@@ -35,7 +35,6 @@ function infos(
   if (include_merge_commits) {
     params.append('include_merge_commit', include_merge_commits)
   }
-  console.log(params.toString())
   return axios.get(
     url, {
     params: params

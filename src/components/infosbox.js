@@ -99,8 +99,8 @@ class InfosBox extends React.Component {
             description={this.props.description}
             infos_entries={this.props.infos_entries}
             GetInfos={this.props.GetInfos}
-            from_date={this.props.filters_from_date}
-            to_date={this.props.filters_to_date}
+            from_date={this.props.from_date}
+            to_date={this.props.to_date}
             include_merge_commits={this.props.include_merge_commits}
           />
         </Card.Body>

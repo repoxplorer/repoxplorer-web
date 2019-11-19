@@ -14,13 +14,38 @@ class Project extends React.Component {
     super(props)
     this.state = {}
   }
+
   componentDidMount() {
     const params = new URLSearchParams(window.location.search)
     if (params.get('name')) {
       this.setState({ 'name': params.get('name') })
       this.props.GetProjects(params.get('name'))
     }
+    this.fetchQueryParams()
   }
+
+  fetchQueryParams = () => {
+    const params = new URLSearchParams(window.location.search)
+    var dfrom = params.get('dfrom')
+    var dto = params.get('dto')
+    var include_merge_commits = params.get('include_merge_commits')
+    if (dfrom) {
+      this.props.handleFromDateChange(dfrom)
+    }
+    if (dto) {
+      this.props.handleToDateChange(dto)
+    }
+    if (include_merge_commits === 'true' ||
+      include_merge_commits === 'false') {
+      if (include_merge_commits === 'true') {
+        this.props.handleIMCChange(true)
+      } else {
+        this.props.handleIMCChange(false)
+      }
+    }
+    this.props.setQueryParamsUpdated()
+  }
+
   render() {
     if (!this.state.name) {
       return (
@@ -29,7 +54,7 @@ class Project extends React.Component {
         </Alert>
       )
     }
-    if (this.props.projects_loading) {
+    if (this.props.projects_loading || !this.props.query_params_updated) {
       return (
         <Row>
           <Col md={{ span: 12, offset: 5 }}>

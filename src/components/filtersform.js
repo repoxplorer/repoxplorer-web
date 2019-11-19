@@ -11,31 +11,6 @@ import moment from 'moment'
 
 class FiltersForm extends React.Component {
 
-  componentDidMount() {
-    this.fetchQueryParams()
-  }
-
-  fetchQueryParams = () => {
-    const params = new URLSearchParams(window.location.search)
-    var dfrom = params.get('dfrom')
-    var dto = params.get('dto')
-    var include_merge_commits = params.get('include_merge_commits')
-    if (dfrom) {
-      this.props.handleFromDateChange(dfrom)
-    }
-    if (dto) {
-      this.props.handleToDateChange(dto)
-    }
-    if (include_merge_commits === 'true' ||
-      include_merge_commits === 'false') {
-      if (include_merge_commits === 'true') {
-        this.props.handleIMCChange(true)
-      } else {
-        this.props.handleIMCChange(false)
-      }
-    }
-  }
-
   updateHistoryURL = (params) => {
     const baseurl = window.location.origin + window.location.pathname
     var urlparams = new URLSearchParams(window.location.search)
