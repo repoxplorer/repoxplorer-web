@@ -82,6 +82,12 @@ class ProjectView extends React.Component {
                 projects_result={this.props.projects_result}
                 projects_loading={this.props.projects_loading}
                 projects_error={this.props.projects_error}
+                filters_from_date={this.props.filters_from_date}
+                filters_to_date={this.props.filters_to_date}
+                handleFromDateChange={this.props.handleFromDateChange}
+                handleToDateChange={this.props.handleToDateChange}
+                include_merge_commits={this.props.include_merge_commits}
+                handleIMCChange={this.props.handleIMCChange}
               />
             </Col>
           </Row>
@@ -120,6 +126,12 @@ class App extends React.Component {
             infos_result={this.props.infos_result}
             infos_loading={this.props.infos_loading}
             infos_error={this.props.infos_error}
+            filters_from_date={this.props.filters_from_date}
+            filters_to_date={this.props.filters_to_date}
+            handleFromDateChange={this.props.handleFromDateChange}
+            handleToDateChange={this.props.handleToDateChange}
+            include_merge_commits={this.props.include_merge_commits}
+            handleIMCChange={this.props.handleIMCChange}
           />
         </Route>
       </Switch>
@@ -138,6 +150,9 @@ const mapStateToProps = state => {
     projects_result: state.projectsReducer.result,
     projects_error: state.projectsReducer.error_response,
     projects_loading: state.projectsReducer.loading,
+    filters_from_date: state.filtersReducer.from_date,
+    filters_to_date: state.filtersReducer.to_date,
+    include_merge_commits: state.filtersReducer.include_merge_commits,
   }
 }
 
@@ -145,7 +160,25 @@ const mapDispatchToProps = dispatch => {
   return {
     handleGetStatus: () => dispatch(getStatus()),
     handleGetInfos: (project_id) => dispatch(getInfos(project_id)),
-    handleGetProjects: (project_id) => dispatch(getProjects(project_id))
+    handleGetProjects: (project_id) => dispatch(getProjects(project_id)),
+    handleFromDateChange: (date) => dispatch(
+      {
+        type: 'FROM_DATE_CHANGE',
+        value: date
+      }
+    ),
+    handleToDateChange: (date) => dispatch(
+      {
+        type: 'TO_DATE_CHANGE',
+        value: date
+      }
+    ),
+    handleIMCChange: (date) => dispatch(
+      {
+        type: 'IMC_CHANGE',
+        value: date
+      }
+    ),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

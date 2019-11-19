@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import statusReducer from './reducers/status';
 import infosReducer from './reducers/infos';
 import projectsReducer from './reducers/projects';
+import filtersReducer from './reducers/filters';
 
 function createMyStore() {
 
@@ -10,6 +11,7 @@ function createMyStore() {
     statusReducer: statusReducer,
     infosReducer: infosReducer,
     projectsReducer: projectsReducer,
+    filtersReducer: filtersReducer,
   })
 
   return createStore(

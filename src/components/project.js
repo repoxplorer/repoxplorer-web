@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import InfosBox from './infosbox'
+import FiltersForm from './filtersform'
 
 class Project extends React.Component {
   constructor(props) {
@@ -64,15 +65,34 @@ class Project extends React.Component {
         'last'
       ]
       return (
-        <InfosBox
-          project_name={this.state.name}
-          description={this.props.projects_result[this.state.name].description}
-          result={this.props.infos_result}
-          loading={this.props.infos_loading}
-          error={this.props.infos_error}
-          infos_entries={infos_entries}
-          GetInfos={this.props.GetInfos}
-        />
+        <Row>
+          <Col>
+            <InfosBox
+              project_name={this.state.name}
+              description={this.props.projects_result[this.state.name].description}
+              result={this.props.infos_result}
+              loading={this.props.infos_loading}
+              error={this.props.infos_error}
+              infos_entries={infos_entries}
+              GetInfos={this.props.GetInfos}
+              from_date={this.props.filters_from_date}
+              to_date={this.props.filters_to_date}
+              include_merge_commits={this.props.include_merge_commits}
+            />
+          </Col>
+          <Col>
+            <FiltersForm
+              from_date={this.props.filters_from_date}
+              to_date={this.props.filters_to_date}
+              include_merge_commits={this.props.include_merge_commits}
+              handleFromDateChange={this.props.handleFromDateChange}
+              handleToDateChange={this.props.handleToDateChange}
+              handleIMCChange={this.props.handleIMCChange}
+              project_name={this.state.name}
+              GetInfos={this.props.GetInfos}
+            />
+          </Col>
+        </Row>
       )
     }
   }

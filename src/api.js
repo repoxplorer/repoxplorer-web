@@ -9,7 +9,6 @@ function status() {
 }
 
 function projects(project_id) {
-  console.log(project_id)
   const url = baseurl + '/projects/projects'
   var params = new URLSearchParams()
   if (project_id) {
@@ -21,10 +20,22 @@ function projects(project_id) {
   })
 }
 
-function infos(project_id) {
+function infos(
+  { project_id, dfrom = undefined,
+    dto = undefined, include_merge_commits = undefined }) {
   const url = baseurl + '/infos/infos'
   var params = new URLSearchParams()
   params.append('pid', project_id)
+  if (dfrom) {
+    params.append('dfrom', dfrom)
+  }
+  if (dto) {
+    params.append('dto', dto)
+  }
+  if (include_merge_commits) {
+    params.append('include_merge_commit', include_merge_commits)
+  }
+  console.log(params.toString())
   return axios.get(
     url, {
     params: params
