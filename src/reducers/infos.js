@@ -24,10 +24,10 @@ const reducer = (state = initialState, action) => {
   return newState;
 }
 
-function getInfos(project_id) {
+function getInfos(params) {
   return (dispatch) => {
     dispatch({ type: 'INFOS_LOADING' });
-    return infos(project_id)
+    return infos(params)
       .then(response => {
         dispatch(
           {

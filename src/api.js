@@ -55,8 +55,27 @@ function infos(
   })
 }
 
+function histo(
+  { type, project_id, dfrom = undefined,
+    dto = undefined, include_merge_commits = undefined }) {
+  const url = baseurl + '/histo/' + type
+  var params = setQueryParams(
+    {
+      'project_id': project_id,
+      'dfrom': dfrom,
+      'dto': dto,
+      'include_merge_commits': include_merge_commits
+    }
+  )
+  return axios.get(
+    url, {
+    params: params
+  })
+}
+
 export {
   status,
   infos,
-  projects
+  projects,
+  histo,
 }

@@ -7,6 +7,7 @@ import './App.css';
 import { getStatus } from './reducers/status'
 import { getInfos } from './reducers/infos'
 import { getProjects } from './reducers/projects'
+import { getCommitsHisto, getAuthorsHisto } from './reducers/histos'
 
 import { Switch, Route } from 'react-router-dom'
 
@@ -90,6 +91,14 @@ class ProjectView extends React.Component {
                 handleIMCChange={this.props.handleIMCChange}
                 setQueryParamsUpdated={this.props.setQueryParamsUpdated}
                 query_params_updated={this.props.query_params_updated}
+                histo_commits_result={this.props.histo_commits_result}
+                histo_authors_result={this.props.histo_authors_result}
+                histo_commits_loading={this.props.histo_commits_loading}
+                histo_authors_loading={this.props.histo_authors_loading}
+                histo_commits_error_response={this.props.histo_commits_error_response}
+                histo_authors_error_response={this.props.histo_authors_error_response}
+                handleGetAuthorsHisto={this.props.handleGetAuthorsHisto}
+                handleGetCommitsHisto={this.props.handleGetCommitsHisto}
               />
             </Col>
           </Row>
@@ -136,6 +145,14 @@ class App extends React.Component {
             handleIMCChange={this.props.handleIMCChange}
             setQueryParamsUpdated={this.props.setQueryParamsUpdated}
             query_params_updated={this.props.query_params_updated}
+            histo_commits_result={this.props.histo_commits_result}
+            histo_authors_result={this.props.histo_authors_result}
+            histo_commits_loading={this.props.histo_commits_loading}
+            histo_authors_loading={this.props.histo_authors_loading}
+            histo_commits_error_response={this.props.histo_commits_error_response}
+            histo_authors_error_response={this.props.histo_authors_error_response}
+            handleGetAuthorsHisto={this.props.handleGetAuthorsHisto}
+            handleGetCommitsHisto={this.props.handleGetCommitsHisto}
           />
         </Route>
       </Switch>
@@ -158,13 +175,21 @@ const mapStateToProps = state => {
     filters_to_date: state.filtersReducer.to_date,
     include_merge_commits: state.filtersReducer.include_merge_commits,
     query_params_updated: state.filtersReducer.query_params_updated,
+    histo_commits_result: state.histosReducer.commits_result,
+    histo_authors_result: state.histosReducer.authors_result,
+    histo_commits_loading: state.histosReducer.commits_loading,
+    histo_authors_loading: state.histosReducer.authors_loading,
+    histo_commits_error_response: state.histosReducer.commits_error_response,
+    histo_authors_error_response: state.histosReducer.authors_error_response,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     handleGetStatus: () => dispatch(getStatus()),
-    handleGetInfos: (project_id) => dispatch(getInfos(project_id)),
+    handleGetInfos: (params) => dispatch(getInfos(params)),
+    handleGetAuthorsHisto: (params) => dispatch(getAuthorsHisto(params)),
+    handleGetCommitsHisto: (params) => dispatch(getCommitsHisto(params)),
     handleGetProjects: (project_id) => dispatch(getProjects(project_id)),
     handleFromDateChange: (date) => dispatch(
       {

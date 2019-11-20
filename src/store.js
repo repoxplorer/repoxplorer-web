@@ -4,6 +4,7 @@ import statusReducer from './reducers/status';
 import infosReducer from './reducers/infos';
 import projectsReducer from './reducers/projects';
 import filtersReducer from './reducers/filters';
+import histosReducer from './reducers/histos';
 
 function createMyStore() {
 
@@ -12,6 +13,7 @@ function createMyStore() {
     infosReducer: infosReducer,
     projectsReducer: projectsReducer,
     filtersReducer: filtersReducer,
+    histosReducer: histosReducer,
   })
 
   return createStore(
